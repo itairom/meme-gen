@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ex meme generator</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body onload="init()">
+    <div class="nav-bar flex">
+        <div class="top-bar flex">
+            <h1>Meme Generator</h1>
+            <a href="#">Gallery</a>
+            <a href="#">About</a>
+            <a href="http://"></a>
+        </div>
+        <div class="bottom-bar flex">
+            <input type="text" placeholder="Enter search keyword">
+            <h1>Keywords</h1>
+        </div>
+    </div>
+
+    <div class="control-box flex">
+        <div class="increase-font" onclick="increaseFont()">+</div>
+        <div class="decrease-font" onclick="decreaseFont()">-</div>
+        <div class="moving-up" onclick="movingUp()">↑</div>
+        <div class="moving-down" onclick="movingDown()">↓</div>
+        <div class="moving-down" onclick="changeLine()">⇵</div>
+        <input name="modify-txt" type="text" oninput="updateText(this.value)">
+    </div>
+    <div class="canvas-container" hidden>
+        <canvas id="my-canvas" width="500" height="500">
+        </canvas>
+    </div>
+    <div class="gallery-container">
+        <img src="img/1.jpg" onclick="onSelectMeme()">
+        <img src="img/2.jpg">
+    </div>
+    <div class="footer">
+
+    </div>
+    <script src="js/util.js "></script>
+    <script src="js/meme-generator-controller.js "></script>
+    <script src="js/meme-generator-service.js "></script>
+</body>
+
+</html>

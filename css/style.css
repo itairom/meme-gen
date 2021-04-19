@@ -1,0 +1,69 @@
+h1 {
+    font-family: 'impact';
+}
+
+.canvas-container {
+    background-color: lightgoldenrodyellow;
+    padding: 10px;
+}
+
+#my-canvas {
+    margin: 20px auto;
+    border: 1px solid rgb(255, 0, 0);
+    display: block;
+}
+
+.nav-bar {
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.top-bar {
+    background-color: #ff7f00;
+    justify-content: space-between;
+}
+
+.bottom-bar {
+    justify-content: space-between;
+}
+
+.control-box {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.control-box div {
+    padding: 10px 10px 10px;
+    cursor: pointer;
+    border: 1px black solid;
+    margin-right: 20px;
+}
+
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(5, 100px);
+    grid-template-rows: repeat(5, 100px);
+    gap: 10px;
+}
+
+.gallery-container img {
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+
+/* HELPERS */
+
+.flex {
+    display: flex;
+}
+
+
+/* FONTS */
+
+@font-face {
+    font-family: 'impact';
+    src: url(../font/impact/impact.ttf);
+}
