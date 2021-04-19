@@ -7,6 +7,12 @@ function onInit() {
     document.querySelector('input[name="modify-txt"]').value = gMeme.lines[gMeme.selectedLineIdx].txt
 }
 
+function onChangeLine() {
+    changeLine()
+    document.querySelector('input[name="modify-txt"]').value = gMeme.lines[gMeme.selectedLineIdx].txt
+}
+
+
 function loadGallery() {
     var imgs = getImages()
     let strHtmls = imgs.map(img => {
