@@ -156,22 +156,48 @@ function resizeCanvas() {
 
 
 function changeLine() {
+
+    let x = gMeme.lines[gMeme.selectedLineIdx].xPos
+    let y = gMeme.lines[gMeme.selectedLineIdx].xPos
+
     let length = gMeme.lines.length;
     gMeme.selectedLineIdx++
         if (gMeme.selectedLineIdx === length) gMeme.selectedLineIdx = 0
     console.log(gMeme.selectedLineIdx);
+
+    selectText(x, y)
 }
 
-// function selectText(x, y) {
-//     gCtx.fillStyle = 'white'
-//     gCtx.strokeStyle = 'green'
-//     gCtx.lineWidth = 5
-//     gCtx.beginPath();
-//     gCtx.rect(x, y, 100, -50)
-//     gCtx.strokeStyle = 'red'
-//     gCtx.stroke()
-//     gCtx.closePath()
-// }
+function wrapText(context, text, x, y, maxWidth, lineHeight) {
+    var words = text.split(' ');
+    var line = '';
+
+    for (var n = 0; n < words.length; n++) {
+        var testLine = line + words[n] + ' ';
+        var metrics = context.measureText(testLine);
+        var testWidth = metrics.width;
+        if (testWidth > maxWidth && n > 0) {
+            context.fillText(line, x, y);
+            line = words[n] + ' ';
+            y += lineHeight;
+        } else {
+            line = testLine;
+        }
+    }
+    context.fillText(line, x, y);
+}
+
+
+function selectText(x, y) {
+    gCtx.fillStyle = 'white'
+    gCtx.strokeStyle = 'green'
+    gCtx.lineWidth = 5
+    gCtx.beginPath();
+    gCtx.rect(x, y, 200, 50)
+    gCtx.strokeStyle = 'red'
+    gCtx.stroke()
+    gCtx.closePath()
+}
 
 function drawText(txt, x, y) {
     gCtx.fillStyle = 'white'
@@ -220,7 +246,7 @@ function addTouchListeners() {
 
 function onDown(ev) {
     const pos = getEvPos(ev)
-        // if (!isTextClicked(pos)) return
+    if (!isTextClicked(pos)) return
     gMeme.lines[gMeme.selectedLineIdx].isDragging = true
     gStartPos = pos
     document.body.style.cursor = 'grabbing'
@@ -246,12 +272,6 @@ function onUp() {
     document.body.style.cursor = 'grab'
 }
 
-function resizeCanvas() {
-    const elContainer = document.querySelector('.canvas-container');
-    gCanvas.width = elContainer.offsetWidth
-    gCanvas.height = elContainer.offsetHeight
-}
-
 function getEvPos(ev) {
     const pos = {
         x: ev.offsetX,
@@ -269,15 +289,13 @@ function getEvPos(ev) {
 }
 
 function isTextClicked(clickedPos) {
-    const { pos } = gMeme.lines[gMeme.selectedLineIdx]
-    const distance = Math.sqrt((pos.xPos - clickedPos.xPos) ** 2 + (pos.yPos - clickedPos.yPos) ** 2)
-    return distance <= gMeme.lines[gMeme.selectedLineIdx].size
+    const posX = gMeme.lines[gMeme.selectedLineIdx].xPos
+    const posY = gMeme.lines[gMeme.selectedLineIdx].yPos
+    console.log('clickedPos', clickedPos);
+    console.log('clickedPos', posX - clickedPos.x, posY - clickedPos.y);
+
+
+
+    const distance = Math.abs(posX - clickedPos.x + posY - clickedPos.y)
+    return distance <= 50 // TODO- calculate agian 
 }
-
-
-
-
-// function renderCanvas() {
-//     gCtx.fillStyle = "#ede5ff"
-//     gCtx.fillRect(0, 0, gCanvas.width, gCanvas.height)
-// }
