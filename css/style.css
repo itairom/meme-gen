@@ -1,16 +1,24 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    flex-direction: column;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    font-weight: normal;
+}
+
 h1 {
     font-family: 'impact';
-}
-
-.canvas-container {
-    background-color: lightgoldenrodyellow;
-    padding: 10px;
-}
-
-#my-canvas {
-    margin: 20px auto;
-    border: 1px solid rgb(255, 0, 0);
-    display: block;
 }
 
 .nav-bar {
@@ -21,15 +29,36 @@ h1 {
 .top-bar {
     background-color: #ff7f00;
     justify-content: space-between;
+    align-items: center;
 }
 
 .bottom-bar {
     justify-content: space-between;
+    align-items: center;
+}
+
+.main-body {
+    justify-content: space-evenly;
+}
+
+.canvas-container {
+    background-color: lightgoldenrodyellow;
+    padding: 10px;
+}
+
+#my-canvas {
+    margin: 20px auto;
+    border: 1px solid rgb(255, 0, 0);
 }
 
 .control-box {
+    /* display: grid; */
     font-size: 2rem;
     margin-bottom: 20px;
+    visibility: hidden;
+    grid-template-columns: repeat(3, 70px);
+    grid-template-rows: repeat(3, 70px);
+    gap: 10px
 }
 
 .control-box div {
@@ -37,6 +66,16 @@ h1 {
     cursor: pointer;
     border: 1px black solid;
     margin-right: 20px;
+}
+
+.modify-txt {
+    grid-row: 3 /-1;
+}
+
+.gallery-main {
+    justify-content: center;
+    align-items: center;
+    background-color: #e3e3e3;
 }
 
 .gallery-container {
@@ -51,6 +90,11 @@ h1 {
     height: 100px;
     cursor: pointer;
     border-radius: 10px;
+}
+
+.footer {
+    background-color: #ff7f00;
+    text-align: center;
 }
 
 
