@@ -13,10 +13,12 @@
     <div class="nav-bar flex">
         <div class="top-bar flex">
             <h1>Meme Generator</h1>
-            <a href="#" onclick="returnToGallery()">Gallery</a>
-            <a href="#">About</a>
-            <a href="#">Memes</a>
-            <a href="http://"></a>
+            <div class="nav-links flex">
+                <a href="#" onclick="returnToGallery()">Gallery</a>
+                <a href="#">About</a>
+                <a href="#">Memes</a>
+                <a href="http://"></a>
+            </div>
         </div>
         <div class="bottom-bar flex">
             <input type="text" placeholder="Enter search keyword">
@@ -31,13 +33,13 @@
         </div>
 
         <div class="control-box " hidden>
-            <div class="increase-font" onclick="increaseFont()">+</div>
-            <div class="decrease-font" onclick="decreaseFont()">-</div>
-            <div class="decrease-font" onclick="addLine()">Add</div>
-            <div class="moving-up" onclick="movingUp()">↑</div>
-            <div class="moving-down" onclick="movingDown()">↓</div>
-            <div class="moving-down" onclick="changeLine()">⇵</div>
-            <input name="modify-txt" type="text" oninput="updateText(this.value)">
+            <div class="increase-font" onclick="onIncreaseFont()">+</div>
+            <div class="decrease-font" onclick="onDecreaseFont()">-</div>
+            <div class="decrease-font" onclick="onAddLine()">Add</div>
+            <div class="moving-up" onclick="onMovingUp()">↑</div>
+            <div class="moving-down" onclick="onMovingDown()">↓</div>
+            <div class="moving-down" onclick="onChangeLine()">⇵</div>
+            <input name="modify-txt" type="text" oninput="onUpdateText(this.value)">
         </div>
 
     </div>

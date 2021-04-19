@@ -1,8 +1,11 @@
 'use strict'
+const KEY_MEM = 'MEMS';
+const KEY_IMG = 'IMAGES';
+
 var gCanvas
-let gCtx
-let gLineSpace = 0
-var gKeywords = { 'happy': 12, 'funny puk': 1 }
+var gCtx
+var gLineSpace = 0
+var gKeywords = { 'happy': 3, 'funny puk': 1, 'smiling': 4, 'laugh': 2 }
 var gImgs = [
     { id: 1, url: 'img/1.jpg', keywords: ['happy'] },
     { id: 2, url: 'img/2.jpg', keywords: ['happy'] },
@@ -16,22 +19,43 @@ var gImgs = [
     { id: 11, url: 'img/11.jpg', keywords: ['happy'] },
 ];
 var gMeme = {
-
     selectedImgId: 5,
     selectedLineIdx: 0,
     lines: [{ txt: 'I never eat Falafel', size: 20, align: 'left', color: 'red', xPos: 200, yPos: 50 },
         { txt: 'Second line', size: 20, align: 'left', color: 'red', xPos: 200, yPos: 300 }
-
     ]
 }
 
 function init() {
+    // _createMemes()
     gCanvas = document.querySelector('#my-canvas');
     gCtx = gCanvas.getContext('2d')
     loadGallery()
     drawImg()
     document.querySelector('input[name="modify-txt"]').value = gMeme.lines[gMeme.selectedLineIdx].txt
 
+
+
+}
+
+function _createMemes() {
+    var mems = loadFromStorage(KEY_MEM)
+    if (!mems || !mems.length) {
+        mems = {
+            selectedImgId: 5,
+            selectedLineIdx: 0,
+            lines: []
+        }
+        for (var i = 0; i < 2; i++) {
+            mems.lines.push({ txt: 'I never eat Falafel', size: 20, align: 'left', color: 'red', xPos: 200, yPos: 50 })
+        }
+    }
+    gMeme = mems;
+    saveToStorage(KEY_MEM, gMeme)
+}
+
+function _saveCarsToStorage() {
+    saveToStorage(KEY, gCars)
 }
 
 function drawImg() {
@@ -48,49 +72,29 @@ function drawImg() {
 function addLine() {
     gLineSpace += 20
     gMeme.lines.push({ txt: 'Write a good one!', size: 20, align: 'left', color: 'red', xPos: 200, yPos: 200 + gLineSpace })
-    renderCanvas()
 }
 
 function increaseFont() {
     console.log('in increaseFont', gMeme.selectedLineIdx);
     gMeme.lines[gMeme.selectedLineIdx].size++
         console.log(gMeme.lines[gMeme.selectedLineIdx]);
-    renderCanvas()
 }
 
 function decreaseFont() {
     gMeme.lines[gMeme.selectedLineIdx].size--
-        renderCanvas()
 }
 
 function movingUp() {
     gMeme.lines[gMeme.selectedLineIdx].yPos -= 10
-    renderCanvas()
 }
 
 function movingDown() {
     gMeme.lines[gMeme.selectedLineIdx].yPos += 10
-    renderCanvas()
 }
 
-function onSelectMeme(imgId) {
-    selectMeme(imgId)
-
+function selectMeme(imgId) {
     console.log('clicked', imgId);
     gMeme.selectedImgId = imgId;
-
-    // document.body.querySelector('.gallery-container').style.visibility = "hidden";
-    document.body.querySelector('.gallery-container').style.display = "none";
-
-    document.body.querySelector('.bottom-bar').style.display = "none";
-
-    document.body.querySelector('.main-body').style.display = "flex";
-    document.body.querySelector('.canvas-container').style.visibility = "visible";
-    document.body.querySelector('.canvas-container').style.display = "flex";
-    document.body.querySelector('.control-box').style.visibility = "visible";
-    document.body.querySelector('.control-box').style.display = "grid";
-
-    renderCanvas()
 }
 
 function getMemes() {
@@ -101,13 +105,7 @@ function getImages() {
     return gImgs;
 }
 
-function returnToGallery() {
-    document.body.querySelector('.main-body').style.display = "none";
 
-    document.body.querySelector('.gallery-container').style.visibility = "visible";
-    document.body.querySelector('.bottom-bar').style.display = "flex";
-
-}
 
 
 function resizeCanvas() {
@@ -136,7 +134,6 @@ function selectText(x, y) {
     gCtx.strokeStyle = 'red'
     gCtx.stroke()
     gCtx.closePath()
-
 }
 
 function drawText(txt, x, y) {
@@ -151,7 +148,6 @@ function updateText(txt) {
     // let elTxt = document.querySelector('input[name="modify-txt"]').value
     // console.log(elTxt);
     gMeme.lines[gMeme.selectedLineIdx].txt = txt
-    renderCanvas()
 }
 
 function renderCanvas() {
