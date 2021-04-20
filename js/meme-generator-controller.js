@@ -8,10 +8,16 @@ function onInit() {
 }
 
 function onChangeLine() {
-    // changeLine()
+    changeLine()
     document.querySelector('input[name="modify-txt"]').value = gMeme.lines[gMeme.selectedLineIdx].txt
+    document.querySelector('input[type="color"]').value = gMeme.lines[gMeme.selectedLineIdx].color
         // wrapText(gCtx, gMeme.lines[gMeme.selectedLineIdx].txt, gMeme.lines[gMeme.selectedLineIdx].xPos, gMeme.lines[gMeme.selectedLineIdx].yPos, 300, 100)
         // renderCanvas()
+}
+
+function onSetColor(color) {
+    setColor(color)
+    renderCanvas()
 }
 
 
@@ -34,7 +40,10 @@ function onChangeLine() {
 //     context.fillText(line, x, y);
 // }
 
-
+function onDeleteLine() {
+    deleteLine()
+    renderCanvas()
+}
 
 function loadGallery() {
     var imgs = getImages()
@@ -80,6 +89,10 @@ function onMovingUp() {
 function onMovingDown() {
     movingDown()
     renderCanvas()
+}
+
+function onChangeColor() {
+    changeColor()
 }
 
 function onSelectMeme(imgId) {

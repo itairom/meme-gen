@@ -2,7 +2,8 @@
 const KEY_MEM = 'MEMS';
 const KEY_IMG = 'IMAGES';
 
-
+// let colorPicker = document.querySelector('.color-picker')
+let gColor
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 var gCanvas
 var gStartPos
@@ -21,23 +22,24 @@ var gImgs = [
     { id: 10, url: 'img/10.jpg', keywords: ['happy'] },
     { id: 11, url: 'img/11.jpg', keywords: ['happy'] },
 ];
+
 var gMeme = {
     selectedImgId: 5,
     selectedLineIdx: 0,
     lines: [{
-            txt: 'I never eat Falafel',
-            size: 20,
+            txt: 'I never eat koba',
+            size: 30,
             align: 'left',
-            color: 'red',
+            color: '#ffffff',
             xPos: 200,
             yPos: 50,
             isDragging: false
         },
         {
             txt: 'Second line',
-            size: 20,
+            size: 30,
             align: 'left',
-            color: 'red',
+            color: 'yellow',
             xPos: 200,
             yPos: 300,
             isDragging: false
@@ -46,26 +48,28 @@ var gMeme = {
 }
 
 function init() {
-    // _createMemes()
+    _createMemes()
+    _createImages()
     gCanvas = document.querySelector('#my-canvas');
     gCtx = gCanvas.getContext('2d')
     loadGallery()
     drawImg()
     document.querySelector('input[name="modify-txt"]').value = gMeme.lines[gMeme.selectedLineIdx].txt
-
     addListeners()
     renderCanvas()
-
-
 }
 
-function addListeners() {
-    addMouseListeners()
-    addTouchListeners()
-    window.addEventListener('resize', () => {
-        resizeCanvas()
-        renderCanvas()
-    })
+function _createImages() {
+    console.log('in');
+    var imgs = loadFromStorage(KEY_IMG)
+    if (!imgs || !imgs.length) {
+        imgs = []
+        for (var i = 0; i < gImgs.length; i++) {
+            imgs.push(gImgs[i])
+        }
+    }
+    gImgs = imgs;
+    saveToStorage(KEY_IMG, gImgs)
 }
 
 function _createMemes() {
@@ -79,11 +83,11 @@ function _createMemes() {
         for (var i = 0; i < 2; i++) {
             mems.lines.push({
                 txt: 'I never eat Falafel',
-                size: 20,
+                size: 40,
                 align: 'left',
-                color: 'red',
+                color: '#ffffff',
                 xPos: 200,
-                yPos: 50,
+                yPos: 50 * (i + 3),
                 isDragging: false
             })
         }
@@ -92,8 +96,11 @@ function _createMemes() {
     saveToStorage(KEY_MEM, gMeme)
 }
 
-function _saveCarsToStorage() {
-    saveToStorage(KEY, gCars)
+function setColor(color) {
+    gColor = color
+    gMeme.lines[gMeme.selectedLineIdx].color = color
+
+
 }
 
 function drawImg() {
@@ -102,18 +109,29 @@ function drawImg() {
     elImg.onload = () => {
         gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height)
         for (let i = 0; i < gMeme.lines.length; i++) {
-            drawText(gMeme.lines[i].txt, gMeme.lines[i].xPos, gMeme.lines[i].yPos)
+            drawText(gMeme.lines[i].txt, i, gMeme.lines[i].color, gMeme.lines[i].xPos, gMeme.lines[i].yPos)
         }
     }
 }
 
+
+
 function addLine() {
     gLineSpace += 20
-    gMeme.lines.push({ txt: 'Write a good one!', size: 20, align: 'left', color: 'red', xPos: 200, yPos: 200 + gLineSpace })
+    gMeme.lines.push({ txt: 'Write a good one!', size: 20, align: 'left', color: '#ffffff', xPos: 200, yPos: 200 + gLineSpace })
+    saveToStorage(KEY_MEM, gMeme)
+}
+
+function deleteLine() {
+    gMeme.lines.splice(gMeme.selectedLineIdx, 1)
+    setCurrLine()
+}
+
+function setCurrLine() {
+    gMeme.selectedLineIdx = 0
 }
 
 function increaseFont() {
-    console.log('in increaseFont', gMeme.selectedLineIdx);
     gMeme.lines[gMeme.selectedLineIdx].size++
         console.log(gMeme.lines[gMeme.selectedLineIdx]);
 }
@@ -131,7 +149,6 @@ function movingDown() {
 }
 
 function selectMeme(imgId) {
-    console.log('clicked', imgId);
     gMeme.selectedImgId = imgId;
 }
 
@@ -150,42 +167,38 @@ function resizeCanvas() {
     var elContainer = document.querySelector('.canvas-container');
     gCanvas.width = elContainer.offsetWidth
     gCanvas.height = elContainer.offsetHeight
-    console.log('RESIZE');
 }
-
-
 
 function changeLine() {
 
     let x = gMeme.lines[gMeme.selectedLineIdx].xPos
-    let y = gMeme.lines[gMeme.selectedLineIdx].xPos
+    let y = gMeme.lines[gMeme.selectedLineIdx].yPos
 
     let length = gMeme.lines.length;
     gMeme.selectedLineIdx++
         if (gMeme.selectedLineIdx === length) gMeme.selectedLineIdx = 0
-    console.log(gMeme.selectedLineIdx);
 
-    selectText(x, y)
+        // selectText(x, y)
 }
 
-function wrapText(context, text, x, y, maxWidth, lineHeight) {
-    var words = text.split(' ');
-    var line = '';
+// function wrapText(context, text, x, y, maxWidth, lineHeight) {
+//     var words = text.split(' ');
+//     var line = '';
 
-    for (var n = 0; n < words.length; n++) {
-        var testLine = line + words[n] + ' ';
-        var metrics = context.measureText(testLine);
-        var testWidth = metrics.width;
-        if (testWidth > maxWidth && n > 0) {
-            context.fillText(line, x, y);
-            line = words[n] + ' ';
-            y += lineHeight;
-        } else {
-            line = testLine;
-        }
-    }
-    context.fillText(line, x, y);
-}
+//     for (var n = 0; n < words.length; n++) {
+//         var testLine = line + words[n] + ' ';
+//         var metrics = context.measureText(testLine);
+//         var testWidth = metrics.width;
+//         if (testWidth > maxWidth && n > 0) {
+//             context.fillText(line, x, y);
+//             line = words[n] + ' ';
+//             y += lineHeight;
+//         } else {
+//             line = testLine;
+//         }
+//     }
+//     context.fillText(line, x, y);
+// }
 
 
 function selectText(x, y) {
@@ -199,11 +212,14 @@ function selectText(x, y) {
     gCtx.closePath()
 }
 
-function drawText(txt, x, y) {
-    gCtx.fillStyle = 'white'
-    gCtx.font = `${gMeme.lines[0].size}px impact`;
+function drawText(txt, indx, color, x, y) {
+    console.log('curr line: ', gMeme.selectedLineIdx);
+    gCtx.fillStyle = color
+    gCtx.lineWidth = 2;
+    gCtx.font = `${gMeme.lines[indx].size}px impact`;
     gCtx.fillText(txt, x, y);
     gCtx.strokeText(txt, x, y);
+    // gMeme.selectedLineIdx++
 }
 
 function updateText(txt) {
@@ -212,9 +228,15 @@ function updateText(txt) {
 }
 
 function renderCanvas() {
-    gCanvas = document.querySelector('#my-canvas');
-    gCtx = gCanvas.getContext('2d')
     drawImg()
+}
+
+
+
+function downloadCanvas(elLink) {
+    const data = gCanvas.toDataURL()
+    elLink.href = data
+    elLink.download = 'my-img.jpg'
 }
 
 // ---------------------------------
@@ -223,24 +245,24 @@ function addListeners() {
     addMouseListeners()
     addTouchListeners()
     window.addEventListener('resize', () => {
-        resizeCanvas()
         renderCanvas()
     })
+
+    // gColor = document.addEventListener('change', () => {
+    //     let color = colorPicker.value;
+    //     gColor = color
+    // })
 }
 
 function addMouseListeners() {
     gCanvas.addEventListener('mousemove', onMove)
-
     gCanvas.addEventListener('mousedown', onDown)
-
     gCanvas.addEventListener('mouseup', onUp)
 }
 
 function addTouchListeners() {
     gCanvas.addEventListener('touchmove', onMove)
-
     gCanvas.addEventListener('touchstart', onDown)
-
     gCanvas.addEventListener('touchend', onUp)
 }
 
@@ -249,7 +271,7 @@ function onDown(ev) {
     if (!isTextClicked(pos)) return
     gMeme.lines[gMeme.selectedLineIdx].isDragging = true
     gStartPos = pos
-    document.body.style.cursor = 'grabbing'
+        // document.body.style.cursor = 'grabbing'
 
 }
 
@@ -258,7 +280,6 @@ function onMove(ev) {
         const pos = getEvPos(ev)
         const dx = pos.x - gStartPos.x
         const dy = pos.y - gStartPos.y
-
         gMeme.lines[gMeme.selectedLineIdx].xPos += dx
         gMeme.lines[gMeme.selectedLineIdx].yPos += dy
 
@@ -269,7 +290,9 @@ function onMove(ev) {
 
 function onUp() {
     gMeme.lines[gMeme.selectedLineIdx].isDragging = false
-    document.body.style.cursor = 'grab'
+        // document.body.style.cursor = 'cursor'
+
+    // document.body.style.cursor = 'grab'
 }
 
 function getEvPos(ev) {

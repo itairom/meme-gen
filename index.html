@@ -26,21 +26,32 @@
     </div>
 
     <div class="main-body flex">
-        <div class="canvas-container" hidden>
+        <div class="canvas-container">
             <canvas id="my-canvas" width="500" height="500">
         </canvas>
         </div>
 
-        <div class="control-box " hidden>
+        <div class="control-box ">
+            <input name="modify-txt" type="text" oninput="onUpdateText(this.value)">
             <div class="increase-font" onclick="onIncreaseFont()">+</div>
             <div class="decrease-font" onclick="onDecreaseFont()">-</div>
-            <div class="decrease-font" onclick="onAddLine()">Add</div>
+            <div class="add-line" onclick="onAddLine()">Add</div>
+            <div class="delete-line" onclick="onDeleteLine()">&#128465</div>
             <div class="moving-up" onclick="onMovingUp()">↑</div>
             <div class="moving-down" onclick="onMovingDown()">↓</div>
             <div class="moving-down" onclick="onChangeLine()">⇵</div>
-            <input name="modify-txt" type="text" oninput="onUpdateText(this.value)">
+            <div class="change-font" onclick="">Font</div>
+            <div class="toggle-share" onclick="">Share</div>
+            <input class="color-picker" type='color' oninput="onSetColor(this.value)">
+
         </div>
 
+    </div>
+
+    <div class="share-modal ">
+        <div class="download-canvas">Download</div>
+        <div class="share-canvas">Share</div>
+        <div class="save-canvas">Save</div>
     </div>
 
     <div class="gallery-main flex">
@@ -54,6 +65,7 @@
     </div>
 
 
+    <script src="js/storage-services.js "></script>
     <script src="js/util.js "></script>
     <script src="js/meme-generator-controller.js "></script>
     <script src="js/meme-generator-service.js "></script>
