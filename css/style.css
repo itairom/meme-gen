@@ -31,6 +31,7 @@ h1 {
     background-color: #ff7f00;
     justify-content: space-between;
     align-items: center;
+    font-family: Montserrat;
 }
 
 .nav-links a {
@@ -42,6 +43,11 @@ h1 {
 .bottom-bar {
     justify-content: space-between;
     align-items: center;
+}
+
+.keywords-container h2 {
+    display: flex;
+    margin-left: 10px;
 }
 
 .main-body {
@@ -60,23 +66,36 @@ h1 {
 }
 
 .control-box {
-    margin-bottom: 20px;
+    margin-top: 30px;
+    /* margin-bottom: 20px; */
     display: none;
-    grid-template-columns: repeat(5, 30px);
-    grid-template-rows: repeat(7, 30px);
+    grid-template-columns: repeat(5, 50px);
+    grid-template-rows: repeat(7, 50px);
     gap: 10px;
     background-color: #e3e3e3;
 }
 
-.control-box div {
+.control-box>* {
     /* padding: 10px 10px 10px; */
+    /* display: flex; */
+    /* align-self: center; */
+    font-family: Montserrat;
+    text-align: center;
+    padding-top: 10px;
     cursor: pointer;
     border: 1px black solid;
+    background-color: white;
+    border-radius: 6px;
+    font-size: 20px;
+}
+
+.color-picker {
+    grid-column: 1/-1;
+    grid-row: 4/6;
 }
 
 .control-box input {
     grid-column: 1 / -1;
-    /* grid-row: 1 / 5; */
 }
 
 .toggle-share {
@@ -93,6 +112,18 @@ h1 {
     justify-content: center;
     align-items: center;
     background-color: #e3e3e3;
+}
+
+.local-gallery-main {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: #e3e3e3;
+}
+
+.local-gallery-main .gallery-container img h2 {
+    bottom: 8px;
+    left: 16px;
 }
 
 .gallery-container {
@@ -116,11 +147,15 @@ h1 {
     background-color: rgb(80, 80, 80);
     justify-content: center;
     align-items: center;
+    position: absolute;
+    margin: 300px 700px 400px;
 }
 
-.share-modal div {
+.share-modal>* {
+    text-decoration: none;
     color: white;
     font-size: 2em;
+    cursor: pointer;
 }
 
 .footer {
@@ -141,4 +176,9 @@ h1 {
 @font-face {
     font-family: 'impact';
     src: url(../font/impact/impact.ttf);
+}
+
+@font-face {
+    font-family: 'Montserrat';
+    src: url(../font/Montserrat/Montserrat.ttf);
 }

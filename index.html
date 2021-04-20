@@ -9,66 +9,82 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="flex" onload="init()">
+<body class="flex" onload="onInit()">
     <div class="nav-bar flex">
         <div class="top-bar flex">
             <h1>Meme Generator</h1>
             <div class="nav-links flex">
                 <a href="#" onclick="returnToGallery()">Gallery</a>
                 <a href="#">About</a>
-                <a href="#">Memes</a>
+                <a href="#" onclick="OnOpenLocalGallery()">Memes</a>
             </div>
         </div>
         <div class="bottom-bar flex">
             <input type="text" placeholder="Enter search keyword">
-            <h1>Keywords</h1>
+            <div class="keywords-container flex">
+            </div>
         </div>
-    </div>
 
-    <div class="main-body flex">
-        <div class="canvas-container">
-            <canvas id="my-canvas" width="500" height="500">
+        <div class="main-body flex">
+            <div class="canvas-container">
+                <canvas id="my-canvas" width="500" height="500">
         </canvas>
+            </div>
+
+            <div class="control-box ">
+                <input name="modify-txt" type="text" oninput="onUpdateText(this.value)">
+                <div class="increase-font" onclick="onIncreaseFont()">+</div>
+                <div class="decrease-font" onclick="onDecreaseFont()">-</div>
+                <div class="add-line" onclick="onAddLine()">Add</div>
+                <div class="delete-line" onclick="onDeleteLine()">&#128465</div>
+                <div class="moving-up" onclick="onMovingUp()">↑</div>
+                <div class="moving-down" onclick="onMovingDown()">↓</div>
+                <div class="moving-down" onclick="onChangeLine()">⇵</div>
+                <div class="change-font" onclick="">Font</div>
+                <div class="toggle-share" onclick="onToggleShare()">Share</div>
+                <input class="color-picker" type='color' oninput="onSetColor(this.value)">
+                <img src="img/align-to-left.png" alt="">
+                <img src="img/center-text-alignment.png" onclick="onCenterAlign()">
+                <img src="img/align-to-right.png" alt="">
+
+            </div>
+
         </div>
 
-        <div class="control-box ">
-            <input name="modify-txt" type="text" oninput="onUpdateText(this.value)">
-            <div class="increase-font" onclick="onIncreaseFont()">+</div>
-            <div class="decrease-font" onclick="onDecreaseFont()">-</div>
-            <div class="add-line" onclick="onAddLine()">Add</div>
-            <div class="delete-line" onclick="onDeleteLine()">&#128465</div>
-            <div class="moving-up" onclick="onMovingUp()">↑</div>
-            <div class="moving-down" onclick="onMovingDown()">↓</div>
-            <div class="moving-down" onclick="onChangeLine()">⇵</div>
-            <div class="change-font" onclick="">Font</div>
-            <div class="toggle-share" onclick="">Share</div>
-            <input class="color-picker" type='color' oninput="onSetColor(this.value)">
+        <div class="share-modal ">
+            <a href="#" onclick="onDownloadCanvas(this)">Download</a>
 
+            <div class="share-canvas">
+                <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
+                    <button class="btn" type="submit">Publish</button>
+                    <div class="share-container"></div>
+                </form>
+            </div>
+            <div class="save-canvas" onclick="onSaveToLocal()">Save</div>
         </div>
 
-    </div>
-
-    <div class="share-modal ">
-        <div class="download-canvas">Download</div>
-        <div class="share-canvas">Share</div>
-        <div class="save-canvas">Save</div>
-    </div>
-
-    <div class="gallery-main flex">
-        <div class="gallery-container">
+        <div class="gallery-main flex">
+            <div class="gallery-container">
+            </div>
         </div>
-    </div>
 
-    <div class="footer">
-        <h1>Meme Generator</h1>
-        <h4>all rights reserved 2021 </h2>
-    </div>
+        <div class="local-gallery-main">
+            <div class="gallery-container">
+            </div>
+        </div>
+
+        <div class="footer">
+            <h1>Meme Generator</h1>
+            <h4>all rights reserved 2021 </h2>
+        </div>
 
 
-    <script src="js/storage-services.js "></script>
-    <script src="js/util.js "></script>
-    <script src="js/meme-generator-controller.js "></script>
-    <script src="js/meme-generator-service.js "></script>
+
+        <script src="js/storage-services.js "></script>
+        <script src="js/util.js "></script>
+        <script src="js/upload-service.js "></script>
+        <script src="js/meme-generator-service.js "></script>
+        <script src="js/meme-generator-controller.js "></script>
 </body>
 
 </html>

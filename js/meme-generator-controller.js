@@ -2,9 +2,15 @@
 
 function onInit() {
     init()
+    onGetKeyWords()
     loadGallery()
     drawImg()
     document.querySelector('input[name="modify-txt"]').value = gMeme.lines[gMeme.selectedLineIdx].txt
+}
+
+function onCenterAlign() {
+    centerAlign()
+    renderCanvas()
 }
 
 function onChangeLine() {
@@ -20,25 +26,32 @@ function onSetColor(color) {
     renderCanvas()
 }
 
+function onGetKeyWords() {
+    let keywords = getKeyWords()
+    var keywordsArr = Object.keys(keywords).map((key) => [Object(key), keywords[key]]);
+    let strHtmls = keywordsArr.map(keyword => {
+        return `<h2 style="font-size:${keyword[1]*20}px ;" style="">${keyword[0]}</h2>`
+    })
+    document.querySelector('.keywords-container').innerHTML = strHtmls.join('')
+}
 
-// function wrapText(context, text, x, y, maxWidth, lineHeight) {
-//     var words = text.split(' ');
-//     var line = '';
+function onToggleShare() {
+    document.querySelector('.share-modal').style.display = 'flex';
+}
 
-//     for (var n = 0; n < words.length; n++) {
-//         var testLine = line + words[n] + ' ';
-//         var metrics = context.measureText(testLine);
-//         var testWidth = metrics.width;
-//         if (testWidth > maxWidth && n > 0) {
-//             context.fillText(line, x, y);
-//             line = words[n] + ' ';
-//             y += lineHeight;
-//         } else {
-//             line = testLine;
-//         }
-//     }
-//     context.fillText(line, x, y);
-// }
+function onDownloadCanvas(elLink) {
+    downloadCanvas(elLink)
+    document.querySelector('.share-modal').style.display = 'none';
+}
+
+function onSaveToLocal() {
+    saveToLocal()
+    document.querySelector('.share-modal').style.display = 'none';
+}
+
+
+
+
 
 function onDeleteLine() {
     deleteLine()
@@ -50,15 +63,31 @@ function loadGallery() {
     let strHtmls = imgs.map(img => {
         return `<img src="img/${img.id}.jpg" onclick="onSelectMeme(${img.id})">`
     })
-    document.querySelector('.gallery-container').innerHTML = strHtmls.join('')
+    document.querySelector('.gallery-main .gallery-container').innerHTML = strHtmls.join('')
+}
+
+
+function OnOpenLocalGallery() {
+    console.log(getLocalMemes());
+    var imgs = getLocalMemes()
+    let strHtmls = imgs.map(img => {
+        return `<img style="" src="img/${img.selectedImgId}.jpg" onclick="onSelectMeme(${img.selectedImgId})">
+        <h2 style="">${img.lines[0].txt}</h2>`
+    })
+    document.querySelector('.local-gallery-main .gallery-container').innerHTML = strHtmls.join('')
+    document.body.querySelector('.gallery-container').style.display = "none";
+    document.body.querySelector('.main-body').style.display = "none";
+    document.body.querySelector('.local-gallery-main').style.visibility = "visible";
+    document.body.querySelector('.local-gallery-main').style.display = "grid";
+    document.body.querySelector('.bottom-bar').style.display = "flex";
 }
 
 function returnToGallery() {
+    document.body.querySelector('.local-gallery-main').style.display = "none";
     document.body.querySelector('.main-body').style.display = "none";
     document.body.querySelector('.gallery-container').style.visibility = "visible";
     document.body.querySelector('.gallery-container').style.display = "grid";
     document.body.querySelector('.bottom-bar').style.display = "flex";
-
 }
 
 function onUpdateText(txt) {

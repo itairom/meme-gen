@@ -1,5 +1,6 @@
 'use strict'
 const KEY_MEM = 'MEMS';
+const KEY_LOCAL_MEM = 'LOCAL_MEMS';
 const KEY_IMG = 'IMAGES';
 
 // let colorPicker = document.querySelector('.color-picker')
@@ -11,18 +12,18 @@ var gCtx
 var gLineSpace = 0
 var gKeywords = { 'happy': 3, 'funny puk': 1, 'smiling': 4, 'laugh': 2 }
 var gImgs = [
-    { id: 1, url: 'img/1.jpg', keywords: ['happy'] },
-    { id: 2, url: 'img/2.jpg', keywords: ['happy'] },
+    { id: 1, url: 'img/1.jpg', keywords: ['laugh'] },
+    { id: 2, url: 'img/2.jpg', keywords: ['funny puk'] },
     { id: 3, url: 'img/3.jpg', keywords: ['happy'] },
     { id: 4, url: 'img/4.jpg', keywords: ['happy'] },
-    { id: 5, url: 'img/5.jpg', keywords: ['happy'] },
-    { id: 7, url: 'img/7.jpg', keywords: ['happy'] },
-    { id: 8, url: 'img/8.jpg', keywords: ['happy'] },
-    { id: 9, url: 'img/9.jpg', keywords: ['happy'] },
+    { id: 5, url: 'img/5.jpg', keywords: ['smiling'] },
+    { id: 7, url: 'img/7.jpg', keywords: ['smiling'] },
+    { id: 8, url: 'img/8.jpg', keywords: ['smiling'] },
+    { id: 9, url: 'img/9.jpg', keywords: ['smiling'] },
     { id: 10, url: 'img/10.jpg', keywords: ['happy'] },
-    { id: 11, url: 'img/11.jpg', keywords: ['happy'] },
+    { id: 11, url: 'img/11.jpg', keywords: ['laugh'] },
 ];
-
+var gLocalMeme = []
 var gMeme = {
     selectedImgId: 5,
     selectedLineIdx: 0,
@@ -49,14 +50,33 @@ var gMeme = {
 
 function init() {
     _createMemes()
-    _createImages()
+        // _createImages()
+    _createLocaLMemes()
     gCanvas = document.querySelector('#my-canvas');
     gCtx = gCanvas.getContext('2d')
-    loadGallery()
     drawImg()
     document.querySelector('input[name="modify-txt"]').value = gMeme.lines[gMeme.selectedLineIdx].txt
     addListeners()
     renderCanvas()
+}
+
+function centerAlign() {
+    gMeme.lines[gMeme.selectedLineIdx].align = 'center'
+}
+
+function getKeyWords() {
+
+    let kewords = gImgs.map(keword => {
+        return keword.keywords
+    })
+
+    var keywordsMap = kewords.reduce(function(acc, vote) {
+        if (!acc[vote]) acc[vote] = 0;
+        acc[vote]++
+            return acc;
+    }, {})
+
+    return keywordsMap
 }
 
 function _createImages() {
@@ -96,11 +116,18 @@ function _createMemes() {
     saveToStorage(KEY_MEM, gMeme)
 }
 
+function _createLocaLMemes() {
+    var localMems = loadFromStorage(KEY_LOCAL_MEM)
+    if (!localMems || !localMems.length) {
+        localMems = []
+    }
+    gLocalMeme = localMems;
+    saveToStorage(KEY_LOCAL_MEM, gLocalMeme)
+}
+
 function setColor(color) {
     gColor = color
     gMeme.lines[gMeme.selectedLineIdx].color = color
-
-
 }
 
 function drawImg() {
@@ -113,8 +140,6 @@ function drawImg() {
         }
     }
 }
-
-
 
 function addLine() {
     gLineSpace += 20
@@ -160,8 +185,9 @@ function getImages() {
     return gImgs;
 }
 
-
-
+function getLocalMemes() {
+    return gLocalMeme;
+}
 
 function resizeCanvas() {
     var elContainer = document.querySelector('.canvas-container');
@@ -177,29 +203,7 @@ function changeLine() {
     let length = gMeme.lines.length;
     gMeme.selectedLineIdx++
         if (gMeme.selectedLineIdx === length) gMeme.selectedLineIdx = 0
-
-        // selectText(x, y)
 }
-
-// function wrapText(context, text, x, y, maxWidth, lineHeight) {
-//     var words = text.split(' ');
-//     var line = '';
-
-//     for (var n = 0; n < words.length; n++) {
-//         var testLine = line + words[n] + ' ';
-//         var metrics = context.measureText(testLine);
-//         var testWidth = metrics.width;
-//         if (testWidth > maxWidth && n > 0) {
-//             context.fillText(line, x, y);
-//             line = words[n] + ' ';
-//             y += lineHeight;
-//         } else {
-//             line = testLine;
-//         }
-//     }
-//     context.fillText(line, x, y);
-// }
-
 
 function selectText(x, y) {
     gCtx.fillStyle = 'white'
@@ -213,17 +217,37 @@ function selectText(x, y) {
 }
 
 function drawText(txt, indx, color, x, y) {
-    console.log('curr line: ', gMeme.selectedLineIdx);
     gCtx.fillStyle = color
     gCtx.lineWidth = 2;
     gCtx.font = `${gMeme.lines[indx].size}px impact`;
     gCtx.fillText(txt, x, y);
     gCtx.strokeText(txt, x, y);
-    // gMeme.selectedLineIdx++
 }
 
-function updateText(txt) {
 
+// function drawTextInBox(txt, font, x, y, w, h, angle) {
+//     angle = angle || 0;
+//     var fontHeight = 20;
+//     var hMargin = 4;
+//     gCtx.font = fontHeight + 'px ' + font;
+//     gCtx.textAlign = 'left';
+//     gCtx.textBaseline = 'top';
+//     var txtWidth = gCtx.measureText(txt).width + 2 * hMargin;
+//     gCtx.save();
+//     gCtx.translate(x + w / 2, y);
+//     gCtx.rotate(angle);
+//     gCtx.strokeRect(-w / 2, 0, w, h);
+//     gCtx.scale(w / txtWidth, h / fontHeight);
+//     gCtx.translate(hMargin, 0)
+//     gCtx.fillText(txt, -txtWidth / 2, 0);
+//     gCtx.restore();
+// }
+
+// drawTextInBox('This is a line', 'Arial', 2, 2, 60, 20);
+
+
+
+function updateText(txt) {
     gMeme.lines[gMeme.selectedLineIdx].txt = txt
 }
 
@@ -231,7 +255,11 @@ function renderCanvas() {
     drawImg()
 }
 
-
+function saveToLocal() {
+    gLocalMeme.push(gMeme)
+    saveToStorage(KEY_LOCAL_MEM, gLocalMeme)
+    console.log(gLocalMeme);
+}
 
 function downloadCanvas(elLink) {
     const data = gCanvas.toDataURL()
@@ -248,10 +276,6 @@ function addListeners() {
         renderCanvas()
     })
 
-    // gColor = document.addEventListener('change', () => {
-    //     let color = colorPicker.value;
-    //     gColor = color
-    // })
 }
 
 function addMouseListeners() {
