@@ -247,6 +247,29 @@ h1 {
 }
 
 @media (max-width: 600px) {
+    #my-canvas {
+        width: 340px;
+        height: 340px;
+    }
+    .control-box {
+        margin-top: 30px;
+        /* margin-bottom: 20px; */
+        display: none;
+        grid-template-columns: repeat(5, 60px);
+        grid-template-rows: repeat(7, 60px);
+    }
+    .color-picker {
+        width: 130px;
+        height: 50px;
+    }
+    .control-box>* {
+        padding-top: 20px;
+        font-size: 20px;
+    }
+    .control-box img {
+        width: 60px;
+        height: 60px;
+    }
     .main-body {
         flex-direction: column;
     }
@@ -258,7 +281,6 @@ h1 {
     }
     .gallery-container {
         grid-template-columns: repeat(2, minmax(100px, 1fr));
-        /* grid-template-rows: repeat(auto-fit, minmax(100px, 1fr)); */
         gap: 10px;
     }
     .gallery-container img {
@@ -303,10 +325,6 @@ h1 {
         opacity: 0;
         transition: opacity 0.8s;
     }
-    /* .top-bar h1 {
-        margin-left: 50px;
-        font-size: inherit;
-    } */
     .top-bar>* {
         margin-right: 0;
         margin-left: 0;
@@ -324,8 +342,30 @@ h1 {
     .top-bar h1 {
         margin-right: -200px;
     }
+}
+
+@media (max-width: 400px) {
     #my-canvas {
-        width: 250px;
-        height: 250px;
+        width: 215px;
+        height: 215px;
+    }
+    .control-box {
+        margin-top: 30px;
+        /* margin-bottom: 20px; */
+        display: none;
+        grid-template-columns: repeat(5, 35px);
+        grid-template-rows: repeat(7, 35px);
+    }
+    .color-picker {
+        width: 130px;
+        height: 50px;
+    }
+    .control-box>* {
+        padding-top: 10px;
+        font-size: 13px;
+    }
+    .control-box img {
+        width: 35px;
+        height: 35px;
     }
 }
