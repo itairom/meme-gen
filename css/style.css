@@ -226,7 +226,7 @@ h1 {
     }
     .gallery-container {
         grid-template-columns: repeat(2, minmax(100px, 1fr));
-        grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+        /* grid-template-rows: repeat(auto-fit, minmax(100px, 1fr)); */
         gap: 10px;
     }
     .gallery-container img {
@@ -273,5 +273,23 @@ h1 {
     .top-bar h1 {
         margin-left: 50px;
         font-size: inherit;
+    }
+    .top-bar>* {
+        margin-right: 0;
+        margin-left: 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    .gallery-container img {
+        width: 140px;
+        height: 140px;
+    }
+    .gallery-container {
+        grid-template-columns: repeat(2, minmax(100px, 1fr));
+    }
+    .top-bar>* {
+        margin-right: 0;
+        margin-left: -16px;
     }
 }
