@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body class="flex" onload="onInit()">
+<body onload="onInit()">
     <div class="main-screen" onclick="toggleMenu()"></div>
 
     <div class="nav-bar flex">
@@ -56,7 +56,6 @@
 
         <div class="share-modal ">
             <a href="#" onclick="onDownloadCanvas(this)">Download</a>
-
             <div class="share-canvas">
                 <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
                     <button class="btn" type="submit">Publish</button>

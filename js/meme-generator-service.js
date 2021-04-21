@@ -56,7 +56,7 @@ function init() {
     gCtx = gCanvas.getContext('2d')
     drawImg()
     document.querySelector('input[name="modify-txt"]').value = gMeme.lines[gMeme.selectedLineIdx].txt
-    addListeners()
+        // addListeners()
     renderCanvas()
 }
 
@@ -80,7 +80,6 @@ function getKeyWords() {
 }
 
 function _createImages() {
-    console.log('in');
     var imgs = loadFromStorage(KEY_IMG)
     if (!imgs || !imgs.length) {
         imgs = []
@@ -158,7 +157,6 @@ function setCurrLine() {
 
 function increaseFont() {
     gMeme.lines[gMeme.selectedLineIdx].size++
-        console.log(gMeme.lines[gMeme.selectedLineIdx]);
 }
 
 function decreaseFont() {
@@ -264,7 +262,6 @@ function renderCanvas() {
 function saveToLocal() {
     gLocalMeme.push(gMeme)
     saveToStorage(KEY_LOCAL_MEM, gLocalMeme)
-    console.log(gLocalMeme);
 }
 
 function downloadCanvas(elLink) {
@@ -275,81 +272,82 @@ function downloadCanvas(elLink) {
 
 // ---------------------------------
 
-function addListeners() {
-    addMouseListeners()
-    addTouchListeners()
-    window.addEventListener('resize', () => {
-        renderCanvas()
-    })
+// function addListeners() {
+//     addMouseListeners()
+//     addTouchListeners()
+//     window.addEventListener('resize', () => {
+//         renderCanvas()
+//     })
 
-}
+// }
 
-function addMouseListeners() {
-    gCanvas.addEventListener('mousemove', onMove)
-    gCanvas.addEventListener('mousedown', onDown)
-    gCanvas.addEventListener('mouseup', onUp)
-}
+// function addMouseListeners() {
+//     gCanvas.addEventListener('mousemove', onMove)
+//     gCanvas.addEventListener('mousedown', onDown)
+//     gCanvas.addEventListener('mouseup', onUp)
+// }
 
-function addTouchListeners() {
-    gCanvas.addEventListener('touchmove', onMove)
-    gCanvas.addEventListener('touchstart', onDown)
-    gCanvas.addEventListener('touchend', onUp)
-}
+// function addTouchListeners() {
+//     gCanvas.addEventListener('touchmove', onMove)
+//     gCanvas.addEventListener('touchstart', onDown)
+//     gCanvas.addEventListener('touchend', onUp)
+// }
 
-function onDown(ev) {
-    const pos = getEvPos(ev)
-    if (!isTextClicked(pos)) return
-    gMeme.lines[gMeme.selectedLineIdx].isDragging = true
-    gStartPos = pos
-        // document.body.style.cursor = 'grabbing'
+// function onDown(ev) {
+//     const pos = getEvPos(ev)
+//     if (!isTextClicked(pos)) return
+//     gMeme.lines[gMeme.selectedLineIdx].isDragging = true
+//     gStartPos = pos
+//         // document.body.style.cursor = 'grabbing'
+//     renderCanvas()
 
-}
+// }
 
-function onMove(ev) {
-    if (gMeme.lines[gMeme.selectedLineIdx].isDragging) {
-        const pos = getEvPos(ev)
-        const dx = pos.x - gStartPos.x
-        const dy = pos.y - gStartPos.y
+// function onMove(ev) {
+//     if (gMeme.lines[gMeme.selectedLineIdx].isDragging) {
+//         const pos = getEvPos(ev)
+//         const dx = pos.x - gStartPos.x
+//         const dy = pos.y - gStartPos.y
 
-        gMeme.lines[gMeme.selectedLineIdx].xPos += dx
-        gMeme.lines[gMeme.selectedLineIdx].yPos += dy
+//         gMeme.lines[gMeme.selectedLineIdx].xPos += dx
+//         gMeme.lines[gMeme.selectedLineIdx].yPos += dy
 
-        const rect = el.getboun
+//         const rect = el.getboun
 
-        gStartPos = pos
-        renderCanvas()
-    }
-}
+//         gStartPos = pos
+//         renderCanvas()
+//     }
+// }
 
-function onUp() {
-    gMeme.lines[gMeme.selectedLineIdx].isDragging = false
-}
+// function onUp() {
+//     gMeme.lines[gMeme.selectedLineIdx].isDragging = false
+// }
 
-function getEvPos(ev) {
-    const pos = {
-        x: ev.offsetX,
-        y: ev.offsetY
-    }
-    if (gTouchEvs.includes(ev.type)) {
-        ev.preventDefault()
-        ev = ev.changedTouches[0]
-        pos = {
-            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
-        }
-    }
-    return pos
-}
+// function getEvPos(ev) {
+//     const pos = {
+//         x: ev.offsetX,
+//         y: ev.offsetY
+//     }
+//     if (gTouchEvs.includes(ev.type)) {
+//         ev.preventDefault()
+//         ev = ev.changedTouches[0]
+//         pos = {
+//             x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+//             y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
+//         }
+//     }
+//     return pos
+// }
 
-function isTextClicked(clickedPos) {
-    const posX = gMeme.lines[gMeme.selectedLineIdx].xPos
-    const posY = gMeme.lines[gMeme.selectedLineIdx].yPos
-        // const distance = Math.abs(posX - clickedPos.x + posY - clickedPos.y)
-        // const distance = Math.sqrt((pos.x - clickedPos.x) ** 2 + (pos.y - clickedPos.y) ** 2)
-
-    const distance = ((posX - clickedPos.x) * 2 + (posY - clickedPos.y) * 2)
+// function isTextClicked(clickedPos) {
+//     const posX = gMeme.lines[gMeme.selectedLineIdx].xPos
+//     const posY = gMeme.lines[gMeme.selectedLineIdx].yPos
+//     console.log('clickedPos', clickedPos);
+//     console.log('clickedPos', posX - clickedPos.x, posY - clickedPos.y);
 
 
-    console.log(distance);
-    return distance <= 50 // TODO- calculate agian 
-}
+
+//     const distance = Math.abs(posX - clickedPos.x + posY - clickedPos.y)
+//     console.log(distance);
+//     return distance <= 50 // TODO- calculate agian 
+// }

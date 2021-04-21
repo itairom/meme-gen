@@ -6,6 +6,7 @@ body {
     margin: 0;
     flex-direction: column;
     background-color: #e3e3e3;
+    display: flex;
 }
 
 h1,
@@ -117,7 +118,7 @@ h1 {
 .toggle-share {
     grid-row: 6 / 7;
     grid-column: 4 / -1;
-    background-color: #ff7f00
+    background-color: #ff7f00;
 }
 
 .chage-font {
@@ -129,6 +130,7 @@ h1 {
     justify-content: center;
     align-items: center;
     background-color: #e3e3e3;
+    /* margin-bottom: 61px; */
 }
 
 .local-gallery-main {
@@ -158,14 +160,17 @@ h1 {
 }
 
 .share-modal {
+    font-family: "impact";
     display: none;
     flex-direction: column;
     width: 300px;
-    background-color: rgb(80, 80, 80);
+    background-color: #ff7f00;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    margin: 300px 700px 400px;
+    position: fixed;
+    right: 61px;
+    top: 486px;
+    border-radius: 10px;
 }
 
 .share-modal>* {
@@ -179,7 +184,8 @@ h1 {
     background-color: #ff7f00;
     text-align: center;
     bottom: 0;
-    margin-bottom: -200px;
+    position: fixed;
+    width: 100%;
 }
 
 
@@ -225,6 +231,10 @@ h1 {
     .control-box img {
         width: 40px;
         height: 40px;
+    }
+    .share-modal {
+        right: 61px;
+        top: 386px;
     }
 }
 
@@ -282,6 +292,7 @@ h1 {
     .gallery-container {
         grid-template-columns: repeat(2, minmax(100px, 1fr));
         gap: 10px;
+        margin-bottom: 51px;
     }
     .gallery-container img {
         width: 180px;
@@ -308,6 +319,11 @@ h1 {
         top: 0;
         width: 100%;
         align-items: center;
+        padding-top: 20px;
+        justify-content: center;
+    }
+    body.menu-open .nav-links>* {
+        padding-bottom: 20px;
     }
     body.menu-open .main-screen {
         pointer-events: auto;
