@@ -3,17 +3,14 @@ const KEY_MEM = 'MEMS';
 const KEY_LOCAL_MEM = 'LOCAL_MEMS';
 const KEY_IMG = 'IMAGES';
 
-// let colorPicker = document.querySelector('.color-picker')
 let gColor
-const gTouchEvs = ['touchstart', 'touchmove', 'touchend']
 var gCanvas
 var gStartPos
 var gCtx
 var gLineSpace = 0
-var gKeywords = { 'happy': 3, 'funny puk': 1, 'smiling': 4, 'laugh': 2 }
 var gImgs = [
     { id: 1, url: 'img/1.jpg', keywords: ['laugh'] },
-    { id: 2, url: 'img/2.jpg', keywords: ['funny puk'] },
+    { id: 2, url: 'img/2.jpg', keywords: ['funny '] },
     { id: 3, url: 'img/3.jpg', keywords: ['happy'] },
     { id: 4, url: 'img/4.jpg', keywords: ['happy'] },
     { id: 5, url: 'img/5.jpg', keywords: ['smiling'] },
@@ -34,7 +31,8 @@ var gMeme = {
             color: '#ffffff',
             xPos: 200,
             yPos: 50,
-            isDragging: false
+            isDragging: false,
+            font: 'impact'
         },
         {
             txt: 'Second line',
@@ -43,7 +41,8 @@ var gMeme = {
             color: 'yellow',
             xPos: 200,
             yPos: 300,
-            isDragging: false
+            isDragging: false,
+            font: 'impact'
         }
     ]
 }
@@ -56,12 +55,24 @@ function init() {
     gCtx = gCanvas.getContext('2d')
     drawImg()
     document.querySelector('input[name="modify-txt"]').value = gMeme.lines[gMeme.selectedLineIdx].txt
-        // addListeners()
     renderCanvas()
 }
 
+function setFont(font) {
+    gMeme.lines[gMeme.selectedLineIdx].font = font;
+
+}
+
 function centerAlign() {
-    gMeme.lines[gMeme.selectedLineIdx].align = 'center'
+    gMeme.lines[gMeme.selectedLineIdx].xPos = 100
+}
+
+function leftAlign() {
+    gMeme.lines[gMeme.selectedLineIdx].xPos = 0
+}
+
+function rightAlign() {
+    gMeme.lines[gMeme.selectedLineIdx].xPos = 200
 }
 
 function getKeyWords() {
@@ -105,9 +116,10 @@ function _createMemes() {
                 size: 40,
                 align: 'left',
                 color: '#ffffff',
-                xPos: 200,
+                xPos: 100,
                 yPos: 50 * (i + 3),
-                isDragging: false
+                isDragging: false,
+                font: 'impact'
             })
         }
     }
@@ -142,7 +154,7 @@ function drawImg() {
 
 function addLine() {
     gLineSpace += 20
-    gMeme.lines.push({ txt: 'Write a good one!', size: 20, align: 'left', color: '#ffffff', xPos: 200, yPos: 200 + gLineSpace })
+    gMeme.lines.push({ txt: 'Write a good one!', size: 30, align: 'left', color: '#ffffff', xPos: 100, yPos: 200 + gLineSpace, font: 'impact' })
     saveToStorage(KEY_MEM, gMeme)
 }
 
@@ -215,41 +227,16 @@ function selectText(x, y) {
 }
 
 function drawText(txt, indx, color, x, y) {
-    let h = 100
-    let w = txt.length
+
 
     gCtx.fillStyle = color
     gCtx.lineWidth = 2;
-    var hMargin = 4;
 
-    gCtx.font = `${gMeme.lines[indx].size}px impact`;
+    gCtx.font = `${gMeme.lines[indx].size}px ${gMeme.lines[indx].font}`;
     gCtx.fillText(txt, x, y);
     gCtx.strokeText(txt, x, y);
 
 }
-
-
-// function drawTextInBox(txt, font, x, y, w, h, angle) {
-//     angle = angle || 0;
-//     var fontHeight = 20;
-//     var hMargin = 4;
-//     gCtx.font = fontHeight + 'px ' + font;
-//     gCtx.textAlign = 'left';
-//     gCtx.textBaseline = 'top';
-//     var txtWidth = gCtx.measureText(txt).width + 2 * hMargin;
-//     gCtx.save();
-//     gCtx.translate(x + w / 2, y);
-//     gCtx.rotate(angle);
-//     gCtx.strokeRect(-w / 2, 0, w, h);
-//     gCtx.scale(w / txtWidth, h / fontHeight);
-//     gCtx.translate(hMargin, 0)
-//     gCtx.fillText(txt, -txtWidth / 2, 0);
-//     gCtx.restore();
-// }
-
-// drawTextInBox('This is a line', 'Arial', 2, 2, 60, 20);
-
-
 
 function updateText(txt) {
     gMeme.lines[gMeme.selectedLineIdx].txt = txt
@@ -269,85 +256,3 @@ function downloadCanvas(elLink) {
     elLink.href = data
     elLink.download = 'my-img.jpg'
 }
-
-// ---------------------------------
-
-// function addListeners() {
-//     addMouseListeners()
-//     addTouchListeners()
-//     window.addEventListener('resize', () => {
-//         renderCanvas()
-//     })
-
-// }
-
-// function addMouseListeners() {
-//     gCanvas.addEventListener('mousemove', onMove)
-//     gCanvas.addEventListener('mousedown', onDown)
-//     gCanvas.addEventListener('mouseup', onUp)
-// }
-
-// function addTouchListeners() {
-//     gCanvas.addEventListener('touchmove', onMove)
-//     gCanvas.addEventListener('touchstart', onDown)
-//     gCanvas.addEventListener('touchend', onUp)
-// }
-
-// function onDown(ev) {
-//     const pos = getEvPos(ev)
-//     if (!isTextClicked(pos)) return
-//     gMeme.lines[gMeme.selectedLineIdx].isDragging = true
-//     gStartPos = pos
-//         // document.body.style.cursor = 'grabbing'
-//     renderCanvas()
-
-// }
-
-// function onMove(ev) {
-//     if (gMeme.lines[gMeme.selectedLineIdx].isDragging) {
-//         const pos = getEvPos(ev)
-//         const dx = pos.x - gStartPos.x
-//         const dy = pos.y - gStartPos.y
-
-//         gMeme.lines[gMeme.selectedLineIdx].xPos += dx
-//         gMeme.lines[gMeme.selectedLineIdx].yPos += dy
-
-//         const rect = el.getboun
-
-//         gStartPos = pos
-//         renderCanvas()
-//     }
-// }
-
-// function onUp() {
-//     gMeme.lines[gMeme.selectedLineIdx].isDragging = false
-// }
-
-// function getEvPos(ev) {
-//     const pos = {
-//         x: ev.offsetX,
-//         y: ev.offsetY
-//     }
-//     if (gTouchEvs.includes(ev.type)) {
-//         ev.preventDefault()
-//         ev = ev.changedTouches[0]
-//         pos = {
-//             x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
-//             y: ev.pageY - ev.target.offsetTop - ev.target.clientTop
-//         }
-//     }
-//     return pos
-// }
-
-// function isTextClicked(clickedPos) {
-//     const posX = gMeme.lines[gMeme.selectedLineIdx].xPos
-//     const posY = gMeme.lines[gMeme.selectedLineIdx].yPos
-//     console.log('clickedPos', clickedPos);
-//     console.log('clickedPos', posX - clickedPos.x, posY - clickedPos.y);
-
-
-
-//     const distance = Math.abs(posX - clickedPos.x + posY - clickedPos.y)
-//     console.log(distance);
-//     return distance <= 50 // TODO- calculate agian 
-// }

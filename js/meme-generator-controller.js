@@ -8,6 +8,27 @@ function onInit() {
     document.querySelector('input[name="modify-txt"]').value = gMeme.lines[gMeme.selectedLineIdx].txt
 }
 
+function onToggleAbout() {
+    document.querySelector('.main-body').style.display = 'none'
+    document.body.querySelector('.local-gallery-main').style.display = "none";
+    document.body.querySelector('.gallery-main').style.display = "none";
+    document.body.querySelector('.about-modal').style.display = "flex";
+    renderCanvas()
+}
+
+function onSetFont(font) {
+    setFont(font)
+    document.querySelector('.font-list').style.display = 'none'
+    renderCanvas()
+}
+
+function onToggleFont() {
+    document.querySelector('.font-list').style.visibility = 'visible'
+    document.querySelector('.font-list').style.transition = 'visibility 5s '
+    renderCanvas()
+
+}
+
 function toggleMenu() {
     document.body.classList.toggle('menu-open')
 }
@@ -17,12 +38,20 @@ function onCenterAlign() {
     renderCanvas()
 }
 
+function onLeftAlign() {
+    leftAlign()
+    renderCanvas()
+}
+
+function onRightAlign() {
+    rightAlign()
+    renderCanvas()
+}
+
 function onChangeLine() {
     changeLine()
     document.querySelector('input[name="modify-txt"]').value = gMeme.lines[gMeme.selectedLineIdx].txt
     document.querySelector('input[type="color"]').value = gMeme.lines[gMeme.selectedLineIdx].color
-        // wrapText(gCtx, gMeme.lines[gMeme.selectedLineIdx].txt, gMeme.lines[gMeme.selectedLineIdx].xPos, gMeme.lines[gMeme.selectedLineIdx].yPos, 300, 100)
-        // renderCanvas()
 }
 
 function onSetColor(color) {
@@ -41,6 +70,7 @@ function onGetKeyWords() {
 
 function onToggleShare() {
     document.querySelector('.share-modal').style.display = 'flex';
+
 }
 
 function onDownloadCanvas(elLink) {
@@ -52,10 +82,6 @@ function onSaveToLocal() {
     saveToLocal()
     document.querySelector('.share-modal').style.display = 'none';
 }
-
-
-
-
 
 function onDeleteLine() {
     deleteLine()
@@ -70,12 +96,13 @@ function loadGallery() {
     document.querySelector('.gallery-main .gallery-container').innerHTML = strHtmls.join('')
 }
 
-
 function OnOpenLocalGallery() {
     var imgs = getLocalMemes()
     let strHtmls = imgs.map(img => {
-        return `<img style="" src="img/${img.selectedImgId}.jpg" onclick="onSelectMeme(${img.selectedImgId})">
-        <h2 style="">${img.lines[0].txt}</h2>`
+        return ` <div class="local-img">
+        <img style="" src="img/${img.selectedImgId}.jpg" onclick="onSelectMeme(${img.selectedImgId})">
+        <h2 onclick="onSelectMeme(${img.selectedImgId})">${img.lines[0].txt}</h2>
+        </div>`
     })
     document.querySelector('.local-gallery-main .gallery-container').innerHTML = strHtmls.join('')
     document.body.querySelector('.gallery-container').style.display = "none";
@@ -83,14 +110,18 @@ function OnOpenLocalGallery() {
     document.body.querySelector('.local-gallery-main').style.visibility = "visible";
     document.body.querySelector('.local-gallery-main').style.display = "grid";
     document.body.querySelector('.bottom-bar').style.display = "flex";
+    document.body.querySelector('.about-modal').style.display = "none";
+
 }
 
 function returnToGallery() {
     document.body.querySelector('.local-gallery-main').style.display = "none";
     document.body.querySelector('.main-body').style.display = "none";
-    document.body.querySelector('.gallery-container').style.visibility = "visible";
+    document.body.querySelector('.gallery-main').style.display = "flex";
     document.body.querySelector('.gallery-container').style.display = "grid";
     document.body.querySelector('.bottom-bar').style.display = "flex";
+    document.body.querySelector('.about-modal').style.display = "none";
+
 }
 
 function onUpdateText(txt) {
@@ -130,9 +161,7 @@ function onChangeColor() {
 function onSelectMeme(imgId) {
     selectMeme(imgId)
     document.body.querySelector('.gallery-container').style.display = "none";
-
     document.body.querySelector('.local-gallery-main').style.display = "none";
-
     document.body.querySelector('.bottom-bar').style.display = "none";
     document.body.querySelector('.main-body').style.display = "flex";
     document.body.querySelector('.canvas-container').style.visibility = "visible";

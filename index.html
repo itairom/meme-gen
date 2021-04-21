@@ -17,7 +17,7 @@
             <h1>Meme Generator</h1>
             <div class="nav-links flex">
                 <a href="#" onclick="returnToGallery()">Gallery</a>
-                <a href="#">About</a>
+                <a href="#" onclick="onToggleAbout()">About</a>
                 <a href="#" onclick="OnOpenLocalGallery()">Memes</a>
             </div>
             <dov hidden class="btn-menu" onclick="toggleMenu()">☰</dov>
@@ -43,10 +43,16 @@
                 <div class="delete-line" onclick="onDeleteLine()">&#128465</div>
                 <div class="moving-up" onclick="onMovingUp()">↑</div>
                 <div class="moving-down" onclick="onMovingDown()">↓</div>
-                <img src="img/align-to-left.png" alt="">
+                <img src="img/align-to-left.png" onclick="onLeftAlign()">
                 <img src="img/center-text-alignment.png" onclick="onCenterAlign()">
-                <img src="img/align-to-right.png" alt="">
-                <div class="change-font" onclick="">Font</div>
+                <img src="img/align-to-right.png" onclick="onRightAlign()">
+                <div class="change-font" onclick="onToggleFont()">Font
+                    <div class="font-list flex">
+                        <a onclick="onSetFont('arial')">arial</a>
+                        <a onclick="onSetFont('david')">david</a>
+                        <a onclick="onSetFont('impact')">impact</a>
+                    </div>
+                </div>
                 <div class="toggle-share" onclick="onToggleShare()">Share</div>
                 <input class="color-picker" type='color' oninput="onSetColor(this.value)">
 
@@ -58,7 +64,8 @@
             <a href="#" onclick="onDownloadCanvas(this)">Download</a>
             <div class="share-canvas">
                 <form action="" method="POST" enctype="multipart/form-data" onsubmit="uploadImg(this, event)">
-                    <button class="btn" type="submit">Publish</button>
+                    <input name="img" id="imgData" type="hidden" />
+                    <button class="share-btn" type="submit">Publish</button>
                     <div class="share-container"></div>
                 </form>
             </div>
@@ -73,6 +80,12 @@
         <div class="local-gallery-main">
             <div class="gallery-container">
             </div>
+        </div>
+
+        <div hidden class="about-modal">
+            <img src="img/wizard.jpeg">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat accusantium neque delectus iste aliquid, praesentium suscipit quisquam alias fugit libero veniam quasi nemo! Ex , libero reprehenderit odit ratione dolore illum facilis nobis
+                ducimus corporis omnis debitis ipsum consequatur esse voluptate odio aperiam, blanditiis hic eligendi commodi. Sequi cumque iste blanditiis.</p>
         </div>
 
         <div class="footer">
