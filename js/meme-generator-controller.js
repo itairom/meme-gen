@@ -8,6 +8,10 @@ function onInit() {
     document.querySelector('input[name="modify-txt"]').value = gMeme.lines[gMeme.selectedLineIdx].txt
 }
 
+function toggleMenu() {
+    document.body.classList.toggle('menu-open')
+}
+
 function onCenterAlign() {
     centerAlign()
     renderCanvas()
