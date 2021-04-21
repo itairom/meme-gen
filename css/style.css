@@ -7,6 +7,12 @@ body {
     flex-direction: column;
     background-color: #e3e3e3;
     display: flex;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 h1,
@@ -35,6 +41,8 @@ h1 {
     font-family: Montserrat;
     color: white;
 }
+
+.top-bar h1:hover {}
 
 .top-bar>* {
     margin-right: 24px;
@@ -99,8 +107,14 @@ h1 {
 }
 
 .control-box>*:hover {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+}
+
+.control-box>*:active {
+    box-shadow: 0 3px #666;
+    transform: translateY(4px);
 }
 
 .control-box img {
@@ -181,6 +195,15 @@ h1 {
     border-radius: 10px;
 }
 
+.gallery-container img:hover {
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+}
+
+.gallery-container img:active {
+    box-shadow: 0 3px #666;
+    transform: translateY(4px);
+}
+
 .share-modal {
     font-family: impact;
     display: none;
@@ -227,6 +250,7 @@ h1 {
 
 .share-btn:hover {
     transform: skew(-10deg);
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
 }
 
 .about-modal {
@@ -373,9 +397,6 @@ h1 {
         visibility: visible;
         display: flex;
         font-size: 2rem;
-    }
-    .btn-menu:hover {
-        transform: skew(-10deg);
     }
     .nav-links {
         visibility: hidden;
