@@ -87,17 +87,22 @@ h1 {
     /* align-self: center; */
     font-family: Montserrat;
     text-align: center;
-    padding-top: 15px;
+    padding-top: 17px;
     cursor: pointer;
     background-color: white;
     border-radius: 6px;
     font-size: 20px;
 }
 
+.control-box img {
+    width: 60px;
+    height: 60px;
+}
+
 .color-picker {
     grid-column: 1/-1;
     grid-row: 4/6;
-    width: 110px;
+    width: 130px;
     height: 100px;
 }
 
@@ -112,6 +117,7 @@ h1 {
 .toggle-share {
     grid-row: 6 / 7;
     grid-column: 4 / -1;
+    background-color: #ff7f00
 }
 
 .chage-font {
@@ -196,7 +202,37 @@ h1 {
     src: url(../font/Montserrat/Montserrat.ttf);
 }
 
+@media (max-width: 900px) {
+    #my-canvas {
+        width: 400px;
+        height: 400px;
+    }
+    .control-box {
+        margin-top: 30px;
+        /* margin-bottom: 20px; */
+        display: none;
+        grid-template-columns: repeat(5, 40px);
+        grid-template-rows: repeat(7, 40px);
+    }
+    .color-picker {
+        width: 92px;
+        height: 50px;
+    }
+    .control-box>* {
+        padding-top: 10px;
+        font-size: 15px;
+    }
+    .control-box img {
+        width: 40px;
+        height: 40px;
+    }
+}
+
 @media (max-width: 800px) {
+    #my-canvas {
+        width: 300px;
+        height: 300px;
+    }
     .gallery-container {
         grid-template-columns: repeat(4, minmax(100px, 1fr));
         grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
@@ -211,10 +247,6 @@ h1 {
 }
 
 @media (max-width: 600px) {
-    #my-canvas {
-        width: 300px;
-        height: 300px;
-    }
     .main-body {
         flex-direction: column;
     }
@@ -233,9 +265,13 @@ h1 {
         width: 180px;
         height: 180px;
     }
+    .top-bar {
+        justify-content: center;
+    }
     .btn-menu {
         visibility: visible;
-        display: block
+        display: flex;
+        font-size: 2rem;
     }
     .nav-links {
         visibility: hidden;
@@ -267,20 +303,17 @@ h1 {
         opacity: 0;
         transition: opacity 0.8s;
     }
-    .top-bar {
-        justify-content: flex-end;
-    }
-    .top-bar h1 {
+    /* .top-bar h1 {
         margin-left: 50px;
         font-size: inherit;
-    }
+    } */
     .top-bar>* {
         margin-right: 0;
-        margin-left: 10px;
+        margin-left: 0;
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 450px) {
     .gallery-container img {
         width: 140px;
         height: 140px;
@@ -288,8 +321,11 @@ h1 {
     .gallery-container {
         grid-template-columns: repeat(2, minmax(100px, 1fr));
     }
-    .top-bar>* {
-        margin-right: 0;
-        margin-left: -16px;
+    .top-bar h1 {
+        margin-right: -200px;
+    }
+    #my-canvas {
+        width: 250px;
+        height: 250px;
     }
 }
