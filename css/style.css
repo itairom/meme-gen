@@ -1,184 +1,230 @@
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    flex-direction: column;
-    background-color: #e3e3e3
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    margin: 0;
-    font-weight: normal;
-}
-
-h1 {
-    font-family: 'impact';
-}
-
-.nav-bar {
-    flex-direction: column;
-    margin-bottom: 20px;
-}
-
-.top-bar {
-    background-color: #ff7f00;
-    justify-content: space-between;
-    align-items: center;
-    font-family: Montserrat;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: rgb(255, 255, 255);
-    margin-left: 30px;
-}
-
-.bottom-bar {
-    justify-content: space-between;
-    align-items: center;
-}
-
-.keywords-container h2 {
-    display: flex;
-    margin-left: 10px;
-}
-
-.main-body {
-    justify-content: space-evenly;
-}
-
-.canvas-container {
-    background-color: #e3e3e3;
-    padding: 10px;
-    display: none;
-}
-
-#my-canvas {
-    margin: 20px auto;
-    border: 1px solid rgb(255, 0, 0);
-}
-
-.control-box {
-    margin-top: 30px;
-    /* margin-bottom: 20px; */
-    display: none;
-    grid-template-columns: repeat(5, 50px);
-    grid-template-rows: repeat(7, 50px);
-    gap: 10px;
-    background-color: #e3e3e3;
-}
-
-.control-box>* {
-    /* padding: 10px 10px 10px; */
-    /* display: flex; */
-    /* align-self: center; */
-    font-family: Montserrat;
-    text-align: center;
-    padding-top: 10px;
-    cursor: pointer;
-    border: 1px black solid;
-    background-color: white;
-    border-radius: 6px;
-    font-size: 20px;
-}
-
-.color-picker {
-    grid-column: 1/-1;
-    grid-row: 4/6;
-}
-
-.control-box input {
-    grid-column: 1 / -1;
-}
-
-.toggle-share {
-    grid-row: 6 / 7;
-    grid-column: 4 / -1;
-}
-
-.chage-font {
-    grid-row: 4 / 5;
-    grid-column: 1 / 7;
-}
-
-.gallery-main {
-    justify-content: center;
-    align-items: center;
-    background-color: #e3e3e3;
-}
-
-.local-gallery-main {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    background-color: #e3e3e3;
-}
-
-.local-gallery-main .gallery-container img h2 {
-    bottom: 8px;
-    left: 16px;
-}
-
-.gallery-container {
-    display: grid;
-    grid-template-columns: repeat(5, 100px);
-    grid-template-rows: repeat(5, 100px);
-    gap: 10px;
-}
-
-.gallery-container img {
-    width: 100px;
-    height: 100px;
-    cursor: pointer;
-    border-radius: 10px;
-}
-
-.share-modal {
-    display: none;
-    flex-direction: column;
-    width: 300px;
-    background-color: rgb(80, 80, 80);
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    margin: 300px 700px 400px;
-}
-
-.share-modal>* {
-    text-decoration: none;
-    color: white;
-    font-size: 2em;
-    cursor: pointer;
-}
-
-.footer {
-    background-color: #ff7f00;
-    text-align: center;
-}
-
-
-/* HELPERS */
-
-.flex {
-    display: flex;
-}
-
-
-/* FONTS */
-
-@font-face {
-    font-family: 'impact';
-    src: url(../font/impact/impact.ttf);
-}
-
-@font-face {
-    font-family: 'Montserrat';
-    src: url(../font/Montserrat/Montserrat.ttf);
-}
+                                    * {
+                                        box-sizing: border-box;
+                                    }
+                                    
+                                    body {
+                                        margin: 0;
+                                        flex-direction: column;
+                                        background-color: #e3e3e3;
+                                    }
+                                    
+                                    h1,
+                                    h2,
+                                    h3,
+                                    h4,
+                                    h5,
+                                    h6 {
+                                        margin: 0;
+                                        font-weight: normal;
+                                    }
+                                    
+                                    h1 {
+                                        font-family: 'impact';
+                                    }
+                                    
+                                    .nav-bar {
+                                        flex-direction: column;
+                                        margin-bottom: 20px;
+                                    }
+                                    
+                                    .top-bar {
+                                        background-color: #ff7f00;
+                                        justify-content: space-between;
+                                        align-items: center;
+                                        font-family: Montserrat;
+                                        color: white;
+                                    }
+                                    
+                                    .top-bar>* {
+                                        margin-right: 24px;
+                                        margin-left: 24px;
+                                    }
+                                    
+                                    .nav-links a {
+                                        text-decoration: none;
+                                        color: rgb(255, 255, 255);
+                                        margin-left: 30px;
+                                    }
+                                    
+                                    .bottom-bar {
+                                        justify-content: space-between;
+                                        align-items: center;
+                                    }
+                                    
+                                    .keywords-container h2 {
+                                        display: flex;
+                                        margin-left: 10px;
+                                    }
+                                    
+                                    .main-body {
+                                        justify-content: space-evenly;
+                                    }
+                                    
+                                    .canvas-container {
+                                        background-color: #e3e3e3;
+                                        padding: 10px;
+                                        display: none;
+                                    }
+                                    
+                                    #my-canvas {
+                                        margin: 20px auto;
+                                        border: 1px solid rgb(0, 0, 0);
+                                    }
+                                    
+                                    .control-box {
+                                        margin-top: 30px;
+                                        /* margin-bottom: 20px; */
+                                        display: none;
+                                        grid-template-columns: repeat(5, 60px);
+                                        grid-template-rows: repeat(7, 60px);
+                                        gap: 10px;
+                                        background-color: #e3e3e3;
+                                    }
+                                    
+                                    .control-box>* {
+                                        /* padding: 10px 10px 10px; */
+                                        /* display: flex; */
+                                        /* align-self: center; */
+                                        font-family: Montserrat;
+                                        text-align: center;
+                                        padding-top: 15px;
+                                        cursor: pointer;
+                                        background-color: white;
+                                        border-radius: 6px;
+                                        font-size: 20px;
+                                    }
+                                    
+                                    .color-picker {
+                                        grid-column: 1/-1;
+                                        grid-row: 4/6;
+                                        width: 110px;
+                                        height: 100px;
+                                    }
+                                    
+                                    .control-box input {
+                                        grid-column: 1 / -1;
+                                    }
+                                    
+                                    .change-font {
+                                        grid-column: 1/3
+                                    }
+                                    
+                                    .toggle-share {
+                                        grid-row: 6 / 7;
+                                        grid-column: 4 / -1;
+                                    }
+                                    
+                                    .chage-font {
+                                        grid-row: 4 / 5;
+                                        grid-column: 1 / 7;
+                                    }
+                                    
+                                    .gallery-main {
+                                        justify-content: center;
+                                        align-items: center;
+                                        background-color: #e3e3e3;
+                                    }
+                                    
+                                    .local-gallery-main {
+                                        display: none;
+                                        justify-content: center;
+                                        align-items: center;
+                                        background-color: #e3e3e3;
+                                    }
+                                    
+                                    .local-gallery-main .gallery-container img h2 {
+                                        bottom: 8px;
+                                        left: 16px;
+                                    }
+                                    
+                                    .gallery-container {
+                                        display: grid;
+                                        grid-template-columns: repeat(5, 100px);
+                                        grid-template-rows: repeat(5, 100px);
+                                        gap: 10px;
+                                    }
+                                    
+                                    .gallery-container img {
+                                        width: 100px;
+                                        height: 100px;
+                                        cursor: pointer;
+                                        border-radius: 10px;
+                                    }
+                                    
+                                    .share-modal {
+                                        display: none;
+                                        flex-direction: column;
+                                        width: 300px;
+                                        background-color: rgb(80, 80, 80);
+                                        justify-content: center;
+                                        align-items: center;
+                                        position: absolute;
+                                        margin: 300px 700px 400px;
+                                    }
+                                    
+                                    .share-modal>* {
+                                        text-decoration: none;
+                                        color: white;
+                                        font-size: 2em;
+                                        cursor: pointer;
+                                    }
+                                    
+                                    .footer {
+                                        background-color: #ff7f00;
+                                        text-align: center;
+                                        bottom: 0;
+                                        margin-bottom: -200px;
+                                    }
+                                    /* HELPERS */
+                                    
+                                    .flex {
+                                        display: flex;
+                                    }
+                                    /* FONTS */
+                                    
+                                    @font-face {
+                                        font-family: 'impact';
+                                        src: url(../font/impact/impact.ttf);
+                                    }
+                                    
+                                    @font-face {
+                                        font-family: 'Montserrat';
+                                        src: url(../font/Montserrat/Montserrat.ttf);
+                                    }
+                                    
+                                    @media (max-width: 800px) {
+                                        .gallery-container {
+                                            grid-template-columns: repeat(4, minmax(100px, 1fr));
+                                            grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+                                        }
+                                        .bottom-bar {
+                                            flex-direction: column;
+                                        }
+                                        .gallery-container img {
+                                            width: 140px;
+                                            height: 140px;
+                                        }
+                                    }
+                                    
+                                    @media (max-width: 600px) {
+                                        .nav-links {
+                                            /* flex-direction: column; */
+                                        }
+                                        #my-canvas {
+                                            width: 300px;
+                                            height: 300px;
+                                        }
+                                        .main-body {
+                                            flex-direction: column;
+                                        }
+                                        .control-box {
+                                            justify-content: center;
+                                        }
+                                        .keywords-container {
+                                            display: none;
+                                        }
+                                        .gallery-container {
+                                            grid-template-columns: repeat(3, minmax(100px, 1fr));
+                                            grid-template-rows: repeat(auto-fit, minmax(100px, 1fr));
+                                        }
+                                    }

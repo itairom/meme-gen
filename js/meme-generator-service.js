@@ -217,11 +217,17 @@ function selectText(x, y) {
 }
 
 function drawText(txt, indx, color, x, y) {
+    let h = 100
+    let w = txt.length
+
     gCtx.fillStyle = color
     gCtx.lineWidth = 2;
+    var hMargin = 4;
+
     gCtx.font = `${gMeme.lines[indx].size}px impact`;
     gCtx.fillText(txt, x, y);
     gCtx.strokeText(txt, x, y);
+
 }
 
 
@@ -304,8 +310,11 @@ function onMove(ev) {
         const pos = getEvPos(ev)
         const dx = pos.x - gStartPos.x
         const dy = pos.y - gStartPos.y
+
         gMeme.lines[gMeme.selectedLineIdx].xPos += dx
         gMeme.lines[gMeme.selectedLineIdx].yPos += dy
+
+        const rect = el.getboun
 
         gStartPos = pos
         renderCanvas()
@@ -314,9 +323,6 @@ function onMove(ev) {
 
 function onUp() {
     gMeme.lines[gMeme.selectedLineIdx].isDragging = false
-        // document.body.style.cursor = 'cursor'
-
-    // document.body.style.cursor = 'grab'
 }
 
 function getEvPos(ev) {
@@ -338,11 +344,12 @@ function getEvPos(ev) {
 function isTextClicked(clickedPos) {
     const posX = gMeme.lines[gMeme.selectedLineIdx].xPos
     const posY = gMeme.lines[gMeme.selectedLineIdx].yPos
-    console.log('clickedPos', clickedPos);
-    console.log('clickedPos', posX - clickedPos.x, posY - clickedPos.y);
+        // const distance = Math.abs(posX - clickedPos.x + posY - clickedPos.y)
+        // const distance = Math.sqrt((pos.x - clickedPos.x) ** 2 + (pos.y - clickedPos.y) ** 2)
+
+    const distance = ((posX - clickedPos.x) * 2 + (posY - clickedPos.y) * 2)
 
 
-
-    const distance = Math.abs(posX - clickedPos.x + posY - clickedPos.y)
+    console.log(distance);
     return distance <= 50 // TODO- calculate agian 
 }

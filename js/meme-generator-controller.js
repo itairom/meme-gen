@@ -68,7 +68,6 @@ function loadGallery() {
 
 
 function OnOpenLocalGallery() {
-    console.log(getLocalMemes());
     var imgs = getLocalMemes()
     let strHtmls = imgs.map(img => {
         return `<img style="" src="img/${img.selectedImgId}.jpg" onclick="onSelectMeme(${img.selectedImgId})">
@@ -127,6 +126,9 @@ function onChangeColor() {
 function onSelectMeme(imgId) {
     selectMeme(imgId)
     document.body.querySelector('.gallery-container').style.display = "none";
+
+    document.body.querySelector('.local-gallery-main').style.display = "none";
+
     document.body.querySelector('.bottom-bar').style.display = "none";
     document.body.querySelector('.main-body').style.display = "flex";
     document.body.querySelector('.canvas-container').style.visibility = "visible";

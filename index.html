@@ -33,19 +33,19 @@
 
             <div class="control-box ">
                 <input name="modify-txt" type="text" oninput="onUpdateText(this.value)">
+                <div class="moving-down" onclick="onChangeLine()">⇵</div>
+                <div class="add-line" onclick="onAddLine()">Add</div>
                 <div class="increase-font" onclick="onIncreaseFont()">+</div>
                 <div class="decrease-font" onclick="onDecreaseFont()">-</div>
-                <div class="add-line" onclick="onAddLine()">Add</div>
                 <div class="delete-line" onclick="onDeleteLine()">&#128465</div>
                 <div class="moving-up" onclick="onMovingUp()">↑</div>
                 <div class="moving-down" onclick="onMovingDown()">↓</div>
-                <div class="moving-down" onclick="onChangeLine()">⇵</div>
-                <div class="change-font" onclick="">Font</div>
-                <div class="toggle-share" onclick="onToggleShare()">Share</div>
-                <input class="color-picker" type='color' oninput="onSetColor(this.value)">
                 <img src="img/align-to-left.png" alt="">
                 <img src="img/center-text-alignment.png" onclick="onCenterAlign()">
                 <img src="img/align-to-right.png" alt="">
+                <div class="change-font" onclick="">Font</div>
+                <div class="toggle-share" onclick="onToggleShare()">Share</div>
+                <input class="color-picker" type='color' oninput="onSetColor(this.value)">
 
             </div>
 
