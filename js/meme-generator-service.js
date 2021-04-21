@@ -10,7 +10,7 @@ var gCtx
 var gLineSpace = 0
 var gImgs = [
     { id: 1, url: 'img/1.jpg', keywords: ['laugh'] },
-    { id: 2, url: 'img/2.jpg', keywords: ['funny '] },
+    { id: 2, url: 'img/2.jpg', keywords: ['funny'] },
     { id: 3, url: 'img/3.jpg', keywords: ['happy'] },
     { id: 4, url: 'img/4.jpg', keywords: ['happy'] },
     { id: 5, url: 'img/5.jpg', keywords: ['smiling'] },
@@ -18,7 +18,14 @@ var gImgs = [
     { id: 8, url: 'img/8.jpg', keywords: ['smiling'] },
     { id: 9, url: 'img/9.jpg', keywords: ['smiling'] },
     { id: 10, url: 'img/10.jpg', keywords: ['happy'] },
-    { id: 11, url: 'img/11.jpg', keywords: ['laugh'] },
+    { id: 11, url: 'img/11.jpg', keywords: ['dance'] },
+    { id: 12, url: 'img/12.jpg', keywords: ['happy'] },
+    { id: 13, url: 'img/13.jpg', keywords: ['happy'] },
+    { id: 14, url: 'img/14.jpg', keywords: ['happy'] },
+    { id: 15, url: 'img/15.jpg', keywords: ['dance'] },
+    { id: 16, url: 'img/16.jpg', keywords: ['dance'] },
+    { id: 17, url: 'img/17.jpg', keywords: ['funny'] },
+    { id: 18, url: 'img/18.jpg', keywords: ['funny'] },
 ];
 var gLocalMeme = []
 var gMeme = {
@@ -58,9 +65,10 @@ function init() {
     renderCanvas()
 }
 
+
+
 function setFont(font) {
     gMeme.lines[gMeme.selectedLineIdx].font = font;
-
 }
 
 function centerAlign() {
@@ -188,6 +196,7 @@ function selectMeme(imgId) {
 }
 
 function getMemes() {
+
     return gMeme;
 }
 

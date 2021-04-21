@@ -8,24 +8,32 @@ function onInit() {
     document.querySelector('input[name="modify-txt"]').value = gMeme.lines[gMeme.selectedLineIdx].txt
 }
 
+
+
 function onToggleAbout() {
     document.querySelector('.main-body').style.display = 'none'
     document.body.querySelector('.local-gallery-main').style.display = "none";
     document.body.querySelector('.gallery-main').style.display = "none";
     document.body.querySelector('.about-modal').style.display = "flex";
+    toggleMenu()
+
     renderCanvas()
 }
 
 function onSetFont(font) {
     setFont(font)
     document.querySelector('.font-list').style.display = 'none'
+    document.querySelector('.font-list').style.visibility = 'hidden'
+
     renderCanvas()
 }
 
 function onToggleFont() {
+    console.log('toggle');
     document.querySelector('.font-list').style.visibility = 'visible'
-    document.querySelector('.font-list').style.transition = 'visibility 5s '
-    renderCanvas()
+        // document.querySelector('.font-list').style.display = 'flex'
+
+    // renderCanvas()
 
 }
 
@@ -63,7 +71,7 @@ function onGetKeyWords() {
     let keywords = getKeyWords()
     var keywordsArr = Object.keys(keywords).map((key) => [Object(key), keywords[key]]);
     let strHtmls = keywordsArr.map(keyword => {
-        return `<h2 style="font-size:${keyword[1]*20}px ;" style="">${keyword[0]}</h2>`
+        return `<h2 style="font-size:${keyword[1]*10}px ;" style="">${keyword[0]}</h2>`
     })
     document.querySelector('.keywords-container').innerHTML = strHtmls.join('')
 }
@@ -111,6 +119,7 @@ function OnOpenLocalGallery() {
     document.body.querySelector('.local-gallery-main').style.display = "grid";
     document.body.querySelector('.bottom-bar').style.display = "flex";
     document.body.querySelector('.about-modal').style.display = "none";
+    toggleMenu()
 
 }
 
@@ -121,6 +130,7 @@ function returnToGallery() {
     document.body.querySelector('.gallery-container').style.display = "grid";
     document.body.querySelector('.bottom-bar').style.display = "flex";
     document.body.querySelector('.about-modal').style.display = "none";
+    toggleMenu()
 
 }
 

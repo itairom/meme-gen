@@ -7,11 +7,6 @@ body {
     flex-direction: column;
     background-color: #e3e3e3;
     display: flex;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
 }
 
@@ -41,8 +36,6 @@ h1 {
     font-family: Montserrat;
     color: white;
 }
-
-.top-bar h1:hover {}
 
 .top-bar>* {
     margin-right: 24px;
@@ -106,13 +99,17 @@ h1 {
     font-size: 20px;
 }
 
-.control-box>*:hover {
+.control-box input {
+    cursor: default;
+}
+
+.control-box>*:hover:not(input) {
     -webkit-transform: scale(1.05);
     transform: scale(1.05);
     box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
 }
 
-.control-box>*:active {
+.control-box>*:active:not(input) {
     box-shadow: 0 3px #666;
     transform: translateY(4px);
 }
@@ -150,11 +147,11 @@ h1 {
 
 .font-list {
     visibility: hidden;
+    display: flex;
     padding-top: 20px;
     background-color: rgb(255, 255, 255);
     flex-direction: column;
     border-radius: 10px;
-    transition: visibility 5s;
 }
 
 .font-list>* {
@@ -183,14 +180,14 @@ h1 {
 
 .gallery-container {
     display: grid;
-    grid-template-columns: repeat(5, 100px);
-    grid-template-rows: repeat(5, 100px);
+    grid-template-columns: repeat(5, 150px);
+    grid-template-rows: repeat(5, 150px);
     gap: 10px;
 }
 
 .gallery-container img {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     cursor: pointer;
     border-radius: 10px;
 }
@@ -254,22 +251,19 @@ h1 {
 }
 
 .about-modal {
-    /* display: flex; */
+    font-family: impact;
     background-color: white;
     display: none;
     flex-direction: column;
     align-items: center;
-    /* position: fixed; */
-    /* bottom: ; */
-    /* margin-top: 450px; */
-    padding-top: 20px;
+    padding-top: 60px;
     padding-bottom: 300px;
+    font-size: 2rem;
 }
 
 .about-modal img {
     width: 200px;
     height: 200px;
-    /* margin: 0 19px 0 0; */
     object-fit: cover;
     border-radius: 50%;
 }
@@ -393,10 +387,15 @@ h1 {
     .top-bar {
         justify-content: center;
     }
+    .bottom-bar {
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
     .btn-menu {
         visibility: visible;
         display: flex;
         font-size: 2rem;
+        cursor: pointer;
     }
     .nav-links {
         visibility: hidden;
@@ -413,6 +412,7 @@ h1 {
         align-items: center;
         padding-top: 20px;
         justify-content: center;
+        z-index: 1;
     }
     body.menu-open .nav-links>* {
         padding-bottom: 20px;
