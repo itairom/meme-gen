@@ -65,8 +65,6 @@ function init() {
     renderCanvas()
 }
 
-
-
 function setFont(font) {
     gMeme.lines[gMeme.selectedLineIdx].font = font;
 }
@@ -215,10 +213,8 @@ function resizeCanvas() {
 }
 
 function changeLine() {
-
     let x = gMeme.lines[gMeme.selectedLineIdx].xPos
     let y = gMeme.lines[gMeme.selectedLineIdx].yPos
-
     let length = gMeme.lines.length;
     gMeme.selectedLineIdx++
         if (gMeme.selectedLineIdx === length) gMeme.selectedLineIdx = 0
@@ -236,15 +232,11 @@ function selectText(x, y) {
 }
 
 function drawText(txt, indx, color, x, y) {
-
-
     gCtx.fillStyle = color
     gCtx.lineWidth = 2;
-
     gCtx.font = `${gMeme.lines[indx].size}px ${gMeme.lines[indx].font}`;
     gCtx.fillText(txt, x, y);
     gCtx.strokeText(txt, x, y);
-
 }
 
 function updateText(txt) {

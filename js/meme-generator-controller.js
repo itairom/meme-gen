@@ -8,8 +8,6 @@ function onInit() {
     document.querySelector('input[name="modify-txt"]').value = gMeme.lines[gMeme.selectedLineIdx].txt
 }
 
-
-
 function onToggleAbout() {
     document.querySelector('.main-body').style.display = 'none'
     document.body.querySelector('.local-gallery-main').style.display = "none";
@@ -30,11 +28,8 @@ function onSetFont(font) {
 
 function onToggleFont() {
     console.log('toggle');
+
     document.querySelector('.font-list').style.visibility = 'visible'
-        // document.querySelector('.font-list').style.display = 'flex'
-
-    // renderCanvas()
-
 }
 
 function toggleMenu() {
@@ -120,7 +115,6 @@ function OnOpenLocalGallery() {
     document.body.querySelector('.bottom-bar').style.display = "flex";
     document.body.querySelector('.about-modal').style.display = "none";
     toggleMenu()
-
 }
 
 function returnToGallery() {
@@ -131,7 +125,6 @@ function returnToGallery() {
     document.body.querySelector('.bottom-bar').style.display = "flex";
     document.body.querySelector('.about-modal').style.display = "none";
     toggleMenu()
-
 }
 
 function onUpdateText(txt) {
